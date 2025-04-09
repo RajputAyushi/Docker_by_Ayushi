@@ -54,19 +54,63 @@ Practical
 Day 1 : 
 step1 install docker
        docker --version
+     images:
+       docker images (list docker images)
+       docker pull <image_name> (pull image from Docker hub)
+       docker build -t <image_name>:<tag> (build image from docker file)
+       docker history <image_name> (history of an image)
+       docker search <image_name> (search image on Docker hub)
+     container:  
        docker run hello-world
-       docker run -it ubuntu bash (-it for interactive +terminal , ubuntu -image , bash : command to run
+       docker run -it ubuntu bash (-it for interactive +terminal , ubuntu -image , bash : command to run)
+       docker run -d nginx (Run container in background)
+       docker run --name 
        docker ps (list all running containers)
        docker ps -a (list all container with container id )
-       docker images (list docker images)
+       docker run --name mycontainer ubuntu (run with name )
+       docker run -d -p 8080:80 nginx ( run with port mapping )
+       docker run -e MY_ENV=value ubuntu (run with env variable)
+       socker start <container_id_or_name> (to start a container)
+       docker stop <container_id_or_name>  (to stop a container)
+       docker restart <container_id_or_name> ( to restart a container)
        docker rm <container_id> (to delete a container)
        docker rm $(docker ps -aq)
        docker rmi <image_id> or docker rmi ubuntu
+       docker exec -it <container_id_or_name> ( Execute command inside container)
+       docker attach <container_id> (To attach to an existing container)
        docker image prune -f ( delete the images which are not in use)
-       docker inspect <container_id> (gives JSON details including ip address, mounts, config etc)
+       docker inspect <container_id> (gives JSON details including ip address,volumes, mounts, config etc)
        docker logs <container_id>
+       docker cp file.txt mera-container:/tmp/ (Host to container)
+       docker cp mera-container:/tmp/file.txt ./ (container to Host)
+       docker rename old_name new_name (container ka naam badalna)
+       docker pause mera-container (container ko temporarily pause/unpause krna)
+       docker port container_name (to check container ports)
+       docker stats (container ke resource usage dekhna like CPU, RAM network usage)
 
-Day 2 :
+
+Day2: Docker Volumes
+  Advantages: 
+  #Data persistence : even after container delete data is safe
+  #Decoupling of data and container: Easy backup and restores.
+  #shared volumes : ek volume ko multiple container use kr skate h
+  #Performance : Docker volumes are optimized and better than bind mounts in most cases.  
+      Docker volumes are preferred mechanism for persisting data generated and used by Docker container. (jab hum docker container chalate h wo apna data container ke file system ke ander store karta hai. lekin jaise hi container delete hota hai, uska pura data bhi 
+      chala jata hai. is problem ko solve krne ke liye docker volumes use kiye jate hain yeh ek persistent storage provide krte hain. jo container ke life cycle se independent hota hai.
+      Types of volume mounting 
+      1. Named volume: docker khud manage krta hai 
+      docker run -v myvol:app nginx
+      2. Bind Mount: Tu host ka specific path deta hai
+      docker run -v /home/user/data:/app nginx
+
+      common commands 
+      docker volume create my vol 
+      docker volume ls
+      docker volume inspect myvol
+      docker volume rm myvol
+      
+       
+      
        
        
        
