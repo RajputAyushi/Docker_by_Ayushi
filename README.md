@@ -104,10 +104,59 @@ Day2: Docker Volumes
       docker run -v /home/user/data:/app nginx
 
       common commands 
-      docker volume create my vol 
-      docker volume ls
-      docker volume inspect myvol
-      docker volume rm myvol
+      docker volume create my_vol 
+      docker volume ls             >>>>>>>>check all volumes
+      docker volume inspect my_vol >>>>>>>>volume ke ander data check krna
+      docker volume rm myvol       >>>>>>>>remove volume
+
+Day3 : Dockerfile
+  Docker file is a text file which contains Step by step instruction to build Docker image 
+  From ubuntu:latest                                  ------Define Base image
+  LABEL maintainer="yourname@example.com"             ------Give metatadata (e.g maintainer info)
+  RUN apt-grt update && apt-get install -y curl       ------shell command run krta h image build time pe
+  WORKDIR /app                                        ------default working directory set krta h
+  COPY . /app                                         ------Local files ko image/container me copy krta hai
+  CMD ["bash"]                                        ------Default command set krta hai jab container run hota hai
+
+Convert container to image : docker commit <container_id> my-new-image
+Push image to Docker hub : 
+1. docker login
+2. docker tag my custom-image your_dockerhub_username/my_custom_image
+3. docker push your_dockerhub_username/my-custom-image
+
+Day4: Networking Linking and Docker Compose
+1. Docker Networking Basics: Docker ke containers apas me baat krte hai network ke through
+   Docker has three main network types
+  1.1 Bridge (default) : Default network for container
+   i) docker network ls
+   ii) docker run -d --name container1 nginx
+   iii) docker exec -it container1 ping google.com
+   1.2 custom Bridge network (Recommended)
+   i) docker network create my_custom_network
+   ii) docker run -d --name app1 --network my_custom_network nginx
+   iii) docker run -it --name app2 --network my_custom_network busybox
+   1.3 Host : Container directly uses host network - container directly host system ke IP/Port use krta h
+   i) docker run --network host nginx
+   1.4 none: No networking for the container
+    docker run --network none alpine  >>>>>>>is container ka kio network access nhi hoga
+   1.5 Linking Container :
+    docker run -d --name db mongo
+    docker run -it --link db:mongodb alpine
+
+ Day5: Docker Compose : Docker Compose allows to launch multi-container app by allowing multiple container in a single file.
+ to install docker composer-  sudo apt install docker-compose
+  docker-compose up >>>>>>start all containers
+  docker-compose up -d >>>>>>>Run in background
+  docker-compose down >>>>>>>>stop and remove containers networks
+  docker-compose ps >>>>>>>>>show running services
+  docker compose logs>>>>>>>>show logs
+  
+  
+   
+
+
+
+  
       
        
       
